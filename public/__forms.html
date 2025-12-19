@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netlify Forms</title>
 </head>
+
 <body>
     <!-- 
       This file is used by Netlify to detect forms in Next.js App Router projects.
       It is not visible to users.
     -->
-    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+    <form name="contact" netlify netlify-honeypot="bot-field" action="/kontakt?success=true" method="POST" hidden>
         <input type="hidden" name="form-name" value="contact" />
         <input name="bot-field" />
         <input name="name" />
@@ -33,4 +35,5 @@
         <textarea name="message"></textarea>
     </form>
 </body>
+
 </html>

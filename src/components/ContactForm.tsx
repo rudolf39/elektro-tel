@@ -22,10 +22,16 @@ export function ContactForm() {
         const formData = new FormData(myForm);
 
         try {
+            // Convert FormData to URLSearchParams explicitly
+            const data = new URLSearchParams();
+            for (const pair of formData.entries()) {
+                data.append(pair[0], pair[1] as string);
+            }
+
             await fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData as any).toString(),
+                body: data.toString(),
             });
             setStatus("success");
         } catch (error) {
