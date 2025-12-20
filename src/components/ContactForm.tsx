@@ -22,11 +22,16 @@ export function ContactForm() {
         const formData = new FormData(myForm);
 
         try {
-            await fetch("/kontakt", {
+            const res = await fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: new URLSearchParams(formData as any).toString(),
             });
+
+            if (!res.ok) {
+                throw new Error(`Status: ${res.status}`);
+            }
+
             setStatus("success");
         } catch (error) {
             console.error(error);
@@ -58,6 +63,7 @@ export function ContactForm() {
         <form
             name="contact"
             method="POST"
+            action="/kontakt?success=true"
             data-netlify="true"
             netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
