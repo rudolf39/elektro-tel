@@ -122,8 +122,48 @@ const { data, content: markdown } = matter(content);
 
 **Vorteil:** Keine Abhängigkeit von Keystatic im Frontend-Build. Maximale Performance.
 
-## 6. GitHub Integration (Hosting)
-Damit alles online funktioniert:
-1.  Webseite auf Netlify hosten.
-2.  Keystatic Github-App installieren (falls `storage: { kind: 'github' }` genutzt wird).
-3.  Alternativ (wie hier): `kind: 'local'` nutzen und Netlify als "Git-basierten" Builder nutzen. Jede Änderung, die lokal gepusht wird, aktualisiert die Seite.
+## 6. GitHub Integration (Der "Perfekte" Weg)
+
+Damit das CMS auf der Live-Seite funktioniert, darf die GitHub App **nicht manuell** erstellt werden. Der folgende Prozess vermeidet Konfigurationsfehler.
+
+### Schritt 1: API Route anlegen (Pflicht!)
+Bevor Sie starten, muss diese Datei existieren: `src/app/api/keystatic/[...params]/route.ts`.
+```typescript
+import { makeRouteHandler } from '@keystatic/next/route-handler';
+import config from '../../../../../keystatic.config';
+
+export const { GET, POST } = makeRouteHandler({ config });
+```
+
+### Schritt 2: GitHub Modus erzwingen
+Stellen Sie `keystatic.config.ts` vorübergehend auf **GitHub only**:
+```typescript
+storage: {
+    kind: 'github',
+    repo: 'owner/repo-name',
+},
+```
+
+### Schritt 3: Der Lokale Setup-Wizard
+1.  Starten Sie den Server: `npm run dev`.
+2.  Öffnen Sie `http://localhost:3000/keystatic`.
+3.  Sie sehen jetzt nicht das Dashboard, sondern einen **"Setup Keystatic"** Button.
+4.  Klicken Sie darauf! Keystatic führt Sie durch:
+    *   App Name wählen.
+    *   **"Create GitHub App"** klicken (automatisch).
+    *   App auf Ihrem Repository installieren.
+5.  **Ergebnis:** Keystatic erstellt automatisch eine `.env` Datei in Ihrem Projekt mit `KEYSTATIC_GITHUB_CLIENT_ID` und `SECRET`.
+
+### Schritt 4: Deployment & Produktiv-Setzen
+1.  Kopieren Sie die Werte aus der **lokalen** `.env` Datei.
+2.  Fügen Sie diese in Netlify unter **"Environment variables"** ein.
+3.  **WICHTIG:** Gehen Sie auf GitHub in die Settings Ihrer neuen App -> "Developer Settings" -> "Edit".
+4.  Fügen Sie unter "Callback URLs" die **Live-URL** hinzu:
+    `https://[IHRE-DOMAIN].netlify.app/api/keystatic/github/oauth/callback`
+5.  (Optional) Stellen Sie `keystatic.config.ts` wieder auf Hybrid-Modus (Dev=Local, Prod=Github).
+
+### Schritt 5: User hinzufügen
+Um Kollegen Zugriff zu geben:
+*   Fügen Sie diese einfach als **Collaborator** (mit Write-Rechten) in Ihrem GitHub Repository hinzu.
+*   Es ist kein extra Keystatic-Account nötig.
+
