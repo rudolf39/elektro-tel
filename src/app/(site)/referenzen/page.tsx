@@ -11,7 +11,7 @@ export default function ReferencesPage() {
     const refs = getAllReferences();
 
     return (
-        <div className="bg-white">
+        <div className="bg-white w-full overflow-x-hidden">
             {/* Header */}
             <div className="bg-slate-900 text-white py-14 md:py-20 mt-20 md:mt-24">
                 <div className="container mx-auto px-4 text-left">
@@ -28,7 +28,7 @@ export default function ReferencesPage() {
                     {refs.map((item: any, index: number) => (
                         <section key={index} id={item.slug} className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start border-t border-gray-100 pt-16 first:border-0 first:pt-0 scroll-mt-32">
                             {/* Content */}
-                            <div className="flex flex-col items-start text-left">
+                            <div className="flex flex-col items-start text-left min-w-0">
                                 <div className="flex flex-wrap gap-2 mb-4">
                                     <span className="text-white bg-brand-red px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-sm">
                                         {item.category || "Projekt"}
@@ -40,31 +40,31 @@ export default function ReferencesPage() {
                                     )}
                                 </div>
 
-                                <h2 className="text-3xl font-bold uppercase text-slate-900 mb-6">{item.title}</h2>
+                                <h2 className="text-3xl font-bold uppercase text-slate-900 mb-6 break-words hyphens-auto">{item.title}</h2>
 
-                                <div className="prose text-slate-700 mb-8 max-w-none break-words">
+                                <div className="prose text-slate-700 mb-8 max-w-none break-words hyphens-auto">
                                     <div dangerouslySetInnerHTML={{ __html: item.body }} />
                                 </div>
 
                                 <div className="bg-gray-50 p-6 rounded-sm border-l-4 border-brand-red w-full shadow-sm">
                                     <h4 className="font-bold uppercase text-sm mb-4 text-slate-900 border-b border-gray-200 pb-2">Projektdaten</h4>
-                                    <ul className="space-y-3 text-sm text-slate-700 break-words">
+                                    <ul className="space-y-3 text-sm text-slate-700 break-words w-full">
                                         {item.client && (
                                             <li className="flex flex-col sm:flex-row sm:gap-2">
                                                 <span className="font-bold w-24 shrink-0">Bauherr:</span>
-                                                <span>{item.client}</span>
+                                                <span className="min-w-0">{item.client}</span>
                                             </li>
                                         )}
                                         {item.architect && (
                                             <li className="flex flex-col sm:flex-row sm:gap-2">
                                                 <span className="font-bold w-24 shrink-0">Architekt:</span>
-                                                <span>{item.architect}</span>
+                                                <span className="min-w-0">{item.architect}</span>
                                             </li>
                                         )}
                                         {item.works && (
                                             <li className="flex flex-col sm:flex-row sm:gap-2">
                                                 <span className="font-bold w-24 shrink-0">Arbeiten:</span>
-                                                <span>{item.works}</span>
+                                                <span className="min-w-0">{item.works}</span>
                                             </li>
                                         )}
                                     </ul>
