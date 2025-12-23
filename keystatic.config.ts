@@ -2,12 +2,10 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
-    storage: process.env.NODE_ENV === 'development'
-        ? { kind: 'local' }
-        : {
-            kind: 'github',
-            repo: 'infraoneit/elektro-tel',
-        },
+    storage: {
+        kind: 'github',
+        repo: 'infraoneit/elektro-tel',
+    },
     singletons: {},
     collections: {
         help: collection({
