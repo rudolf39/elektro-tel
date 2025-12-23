@@ -75,6 +75,12 @@ Mitarbeiterprofile.
     *   `1` = Ganz vorne (auch auf Home sichtbar).
     *   `5` = Erscheint nur auf der Unterseite (da > 4).
 
+### Anleitungen & Checklisten
+Hier finden Sie interne Dokumente.
+*   **SEO-Checkliste:** Eine vollständige Liste für 2026, was bei der Optimierung zu beachten ist.
+*   **CMS Anleitung:** Dieser Text hier.
+*   **Technische Docs:** Für Entwickler.
+
 ---
 
 ## 3. Hilfe bei Problemen

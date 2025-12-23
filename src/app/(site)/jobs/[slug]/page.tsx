@@ -90,7 +90,7 @@ export default async function JobDetailPage(props: { params: Promise<{ slug: str
                             <p className="font-bold text-lg mb-2">Interessiert?</p>
                             <p className="mb-4 text-slate-600">Sende deine Unterlagen ganz unkompliziert per E-Mail oder melde dich direkt.</p>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <a href={`mailto:${job.applyContact || "jobs@elektro-tel.ch"}`} className="inline-block bg-brand-red text-white font-bold py-3 px-6 rounded-sm hover:bg-brand-red-hover transition-colors text-center">
+                                <a href="mailto:info@elektro-tel.ch" className="inline-block bg-brand-red text-white font-bold py-3 px-6 rounded-sm hover:bg-brand-red-hover transition-colors text-center">
                                     Jetzt bewerben (Email)
                                 </a>
                                 <a href="tel:0800800813" className="inline-block bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 px-6 rounded-sm hover:border-brand-red hover:text-brand-red transition-colors text-center">

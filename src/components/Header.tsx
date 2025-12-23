@@ -65,6 +65,8 @@ export function Header() {
                         <ImageWithFallback
                             src="/images/logo-elektro-tel-ag.svg"
                             alt="Elektro-Tel AG"
+                            width={200}
+                            height={64}
                             className="h-12 md:h-16 w-auto object-contain"
                             fallbackSrc=""
                         />

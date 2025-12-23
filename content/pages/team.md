@@ -10,5 +10,5 @@ blocks:
       Wir verbinden Tradition mit Innovation und setzen auf langjährige Mitarbeiter, die unsere Werte teilen.
   - type: "teamGrid"
     title: "Geschäftsleitung & Team"
-    subtitle: "UNSERE KÖPFE"
+    subtitle: "Unser Management"
 ---

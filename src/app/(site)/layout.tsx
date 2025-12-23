@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Elektro-Tel | Ihr Partner für Elektro und Telekommunikation",
@@ -32,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className="antialiased min-h-screen flex flex-col font-sans">
+      <body className={`${inter.className} antialiased min-h-screen flex flex-col font-sans`}>
         <JsonLd />
         <Header />
         <main className="flex-grow">

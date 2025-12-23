@@ -12,13 +12,13 @@ interface HeroBlockProps {
     image: string;
 }
 
+import Image from "next/image";
+
+// ... existing imports
+
 /**
  * HeroBlock Component
- * 
- * Displays a large hero section with a background image, gradient overlay, and text content.
- * Includes the specific "RedContactBar" component overlapping the bottom.
- * 
- * Used primarily on the Homepage.
+// ...
  */
 export function HeroBlock({ title, subtitle, image }: HeroBlockProps) {
     return (
@@ -26,15 +26,15 @@ export function HeroBlock({ title, subtitle, image }: HeroBlockProps) {
             <div className="relative h-[85vh] min-h-[500px] w-full bg-slate-900 overflow-hidden">
                 {/* Responsive Background Image */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <picture>
-                        <source media="(max-width: 768px)" srcSet="/images/elektro-tel-ag-hero-image_850x570.jpg" />
-                        <img
-                            src={image}
-                            alt={title}
-                            className="w-full h-full object-cover"
-                            style={{ objectPosition: 'center 20%' }}
-                        />
-                    </picture>
+                    <Image
+                        src={image}
+                        alt={title}
+                        fill
+                        priority
+                        className="object-cover"
+                        style={{ objectPosition: 'center 20%' }}
+                        sizes="100vw"
+                    />
                 </div>
                 {/* Gradient Overlay - Lighter as requested */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />

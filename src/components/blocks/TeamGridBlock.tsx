@@ -1,5 +1,6 @@
 import { getAllTeam } from "@/lib/cms";
 import Link from "next/link";
+import Image from "next/image";
 import { Mail } from "lucide-react";
 
 /**
@@ -26,9 +27,14 @@ export async function TeamGridBlock({ title, subtitle, count }: { title: string,
                     {team.map((member: any, i: number) => (
                         <div key={i} className="group text-center">
                             <div className="aspect-[4/5] bg-gray-100 mb-6 relative overflow-hidden rounded-sm mx-auto max-w-[300px]">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                 {member.image ? (
-                                    <img src={member.image} alt={member.title} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+                                    <Image
+                                        src={member.image}
+                                        alt={member.title}
+                                        fill
+                                        className="object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                                    />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-slate-300 bg-slate-50">
                                         Kein Bild
