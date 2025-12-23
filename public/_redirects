@@ -4,8 +4,7 @@ http://elektro-tel.ch/* https://elektro-tel.ch/:splat 301!
 # Redirect www to non-www
 https://www.elektro-tel.ch/* https://elektro-tel.ch/:splat 301!
 
-# Redirect Netlify subdomain to primary domain
-https://elektro-tel.netlify.app/* https://elektro-tel.ch/:splat 301!
+
 
 # Keystatic Auth - Avoid Redirects for API
 /api/* /api/:splat 200
