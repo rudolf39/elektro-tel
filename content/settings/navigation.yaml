@@ -1,0 +1,50 @@
+headerMenu:
+  - name: "Leistungen"
+    href: "/leistungen"
+    hasSubmenu: true
+    submenu:
+      - name: "Elektroplanung"
+        href: "/leistungen/elektroplanung"
+      - name: "Stark- & Schwachstrom"
+        href: "/leistungen/stark-schwachstrom"
+      - name: "Service & Unterhalt"
+        href: "/leistungen/service-unterhalt"
+      - name: "Gebäudeautomation"
+        href: "/leistungen/gebaudeautomation"
+      - name: "Telefonie & Internet"
+        href: "/leistungen/telefonie-internet"
+      - name: "Sicherheit"
+        href: "/leistungen/sicherheit"
+      - name: "Beleuchtung"
+        href: "/leistungen/beleuchtung"
+      - name: "Photovoltaik"
+        href: "/leistungen/photovoltaik"
+      - name: "E-Mobilität"
+        href: "/leistungen/e-mobilitaet"
+  - name: "Team"
+    href: "/team"
+    hasSubmenu: false
+  - name: "News"
+    href: "/news"
+    hasSubmenu: false
+  - name: "Referenzen"
+    href: "/referenzen"
+    hasSubmenu: false
+  - name: "Jobs"
+    href: "/jobs"
+    hasSubmenu: false
+  - name: "Partner"
+    href: "/partner"
+    hasSubmenu: false
+
+footerMenu:
+  - name: "Kontakt"
+    href: "/kontakt"
+  - name: "Qualitätssicherung"
+    href: "/qualitaet"
+  - name: "Impressum"
+    href: "/impressum"
+  - name: "Datenschutz"
+    href: "/datenschutz"
+  - name: "AGB"
+    href: "/agb"

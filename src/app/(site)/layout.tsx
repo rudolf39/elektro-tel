@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import { getNavigationSettings } from "@/lib/cms";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,15 +34,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch navigation settings from CMS
+  const navigationSettings = getNavigationSettings();
+
   return (
     <html lang="de">
       <body className={`${inter.className} antialiased min-h-screen flex flex-col font-sans`}>
         <JsonLd />
-        <Header />
+        <Header headerMenu={navigationSettings?.headerMenu} />
         <main className="flex-grow">
           {children}
         </main>
-        <Footer />
+        <Footer footerMenu={navigationSettings?.footerMenu} />
       </body>
     </html>
   );

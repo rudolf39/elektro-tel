@@ -6,6 +6,8 @@ import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import {
     Calendar, Newspaper, Trophy, Wrench, ShieldCheck, Handshake, Info, Phone
 } from "lucide-react";
+import { StaggerContainer, StaggerItem } from "@/components/ui/PageAnimations";
+import { ProjectCTA } from "@/components/ProjectCTA";
 
 export const metadata: Metadata = {
     title: "News | Elektro-Tel",
@@ -50,16 +52,16 @@ export default function NewsPage() {
             {/* Header */}
             <div className="bg-slate-900 text-white py-14 md:py-20 mt-20 md:mt-24">
                 <div className="container mx-auto px-4 text-left">
-                    <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-6">News – Aktuelles</h1>
-                    <p className="text-xl text-slate-300 max-w-2xl">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tighter mb-4 sm:mb-6">News – Aktuelles</h1>
+                    <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl">
                         Neuigkeiten aus unserem Unternehmen. Partnerschaften, Erfolge und Informationen.
                     </p>
                 </div>
             </div>
 
             {/* News List */}
-            <div className="container mx-auto px-4 py-16">
-                <div className="space-y-12">
+            <div className="container mx-auto px-4 py-10 sm:py-12 md:py-16">
+                <StaggerContainer className="space-y-12">
                     {sortedNews.map((item: any, index: number) => {
                         let IconComponent = Newspaper;
                         let iconStyles = { color: "text-slate-600", bg: "bg-slate-100" };
@@ -77,7 +79,7 @@ export default function NewsPage() {
                         }
 
                         return (
-                            <article key={index} id={item.slug} className="scroll-mt-32 flex flex-col md:flex-row gap-6 md:gap-8 bg-white p-6 md:p-8 rounded-sm shadow-sm md:hover:shadow-md transition-shadow border border-gray-100 items-start">
+                            <StaggerItem key={index} className="scroll-mt-32 flex flex-col md:flex-row gap-6 md:gap-8 bg-white p-6 md:p-8 rounded-sm shadow-sm md:hover:shadow-md transition-shadow border border-gray-100 items-start" id={item.slug}>
                                 {/* Date & Icon Column */}
                                 <div className="flex md:flex-col items-center gap-4 md:w-32 shrink-0 text-center md:pt-2">
                                     <div className={`w-14 h-14 rounded-full flex items-center justify-center ${iconStyles.bg} ${iconStyles.color}`}>
@@ -95,7 +97,7 @@ export default function NewsPage() {
 
                                 {/* Content Column */}
                                 <div className="flex-grow">
-                                    <h2 className="text-2xl font-bold uppercase text-slate-900 mb-4">{item.title}</h2>
+                                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase text-slate-900 mb-3 sm:mb-4">{item.title}</h2>
 
                                     {item.heroImage && (
                                         <div className="mb-6 rounded-sm overflow-hidden bg-gray-50 h-[160px] w-fit flex items-center justify-center border border-gray-100">
@@ -111,18 +113,21 @@ export default function NewsPage() {
                                         <div dangerouslySetInnerHTML={{ __html: item.body }} />
                                     </div>
                                 </div>
-                            </article>
+                            </StaggerItem>
                         );
                     })}
+                </StaggerContainer>
 
-                    {sortedNews.length === 0 && (
-                        <div className="text-center py-20 bg-gray-50 rounded-sm">
-                            <Info className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                            <p className="text-slate-500">Momentan gibt es keine News.</p>
-                        </div>
-                    )}
-                </div>
+                {sortedNews.length === 0 && (
+                    <div className="text-center py-20 bg-gray-50 rounded-sm">
+                        <Info className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                        <p className="text-slate-500">Momentan gibt es keine News.</p>
+                    </div>
+                )}
             </div>
+
+            {/* CTA Section */}
+            <ProjectCTA variant="light" />
         </div>
     );
 }

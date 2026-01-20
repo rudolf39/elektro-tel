@@ -1,13 +1,40 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 
+// Default footer links (fallback if CMS data is not available)
+const defaultFooterLinks = [
+    { name: "Team", href: "/team" },
+    { name: "Referenzen", href: "/referenzen" },
+    { name: "Jobs", href: "/jobs" },
+    { name: "Partner", href: "/partner" },
+];
+
+const defaultLegalLinks = [
+    { name: "Impressum", href: "/impressum" },
+    { name: "Datenschutz", href: "/datenschutz" },
+    { name: "AGB", href: "/agb" },
+];
+
+interface NavMenuItem {
+    name: string;
+    href: string;
+}
+
+interface FooterProps {
+    footerMenu?: NavMenuItem[];
+}
+
 /**
  * Global Footer Component.
  * Displays contact info, social links, and legal navigation.
  * Uses a 4-column grid layout on desktop.
+ * Supports CMS-managed footer links with fallbacks.
  */
-export function Footer() {
+export function Footer({ footerMenu }: FooterProps) {
     const currentYear = new Date().getFullYear();
+
+    // Use CMS footer menu if available, otherwise use defaults
+    const footerLinks = footerMenu && footerMenu.length > 0 ? footerMenu : [...defaultFooterLinks, ...defaultLegalLinks];
 
     return (
         <footer className="bg-slate-900 text-slate-300 py-16">
@@ -73,17 +100,17 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Links */}
+                    {/* Links - CMS managed */}
                     <div>
                         <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-wider">Links</h3>
                         <ul className="space-y-3">
-                            <li><Link href="/team" className="hover:text-brand-red transition-colors">Team</Link></li>
-                            <li><Link href="/referenzen" className="hover:text-brand-red transition-colors">Referenzen</Link></li>
-                            <li><Link href="/jobs" className="hover:text-brand-red transition-colors">Jobs</Link></li>
-                            <li><Link href="/partner" className="hover:text-brand-red transition-colors">Partner</Link></li>
-                            <li><Link href="/impressum" className="hover:text-brand-red transition-colors mt-4 block text-sm">Impressum</Link></li>
-                            <li><Link href="/datenschutz" className="hover:text-brand-red transition-colors text-sm">Datenschutz</Link></li>
-                            <li><Link href="/agb" className="hover:text-brand-red transition-colors text-sm">AGB</Link></li>
+                            {footerLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link href={link.href} className="hover:text-brand-red transition-colors">
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>

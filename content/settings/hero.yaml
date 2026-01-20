@@ -1,0 +1,12 @@
+title: "Ihr Experte für Elektro, Gebäudeautomation & Informatik"
+subtitle: "Wir lassen Sie nicht im Dunkeln stehen."
+image: "/images/elektro-tel-ag-hero-image.webp"
+banners:
+  - label: "Jetzt profitieren"
+    title: "Photovoltaik"
+    description: "Eigener Strom vom Dach"
+    linkText: "Mehr erfahren"
+    linkUrl: "/leistungen/photovoltaik"
+    icon: "Sun"
+    gradientFrom: "orange-500"
+    gradientTo: "yellow-500"

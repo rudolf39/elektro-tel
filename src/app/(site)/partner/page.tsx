@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { getAllPartners } from "@/lib/cms";
 import { marked } from "marked";
+import { ProjectCTA } from "@/components/ProjectCTA";
 
 export const metadata: Metadata = {
     title: "Partner | Elektro-Tel",
@@ -69,6 +70,9 @@ export default async function PartnerPage() {
                     })}
                 </div>
             </div>
+
+            {/* CTA Section */}
+            <ProjectCTA variant="light" />
         </div>
     );
 }

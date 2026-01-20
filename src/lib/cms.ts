@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import yaml from "js-yaml";
 import Markdoc, { nodes, Tag } from '@markdoc/markdoc';
 
 const contentDirectory = path.join(process.cwd(), "content");
@@ -66,22 +67,178 @@ export interface PageContent {
 }
 
 /**
- * Retrieves content for a specific single page (e.g. home.md).
- * Reads the markdown file, parses frontmatter, and converts body to HTML.
+ * Interface for Site Settings (Header, Footer, etc.)
+ */
+export interface SiteSettings {
+    companyName: string;
+    phone: string;
+    email: string;
+    whatsapp: string;
+    footerText: string;
+    socialLinks: {
+        facebook?: string;
+        instagram?: string;
+        linkedin?: string;
+    };
+    locations: Array<{
+        name: string;
+        street: string;
+        city: string;
+        mapsUrl: string;
+    }>;
+}
+
+/**
+ * Retrieves site-wide settings from content/settings/site.yaml
+ */
+export function getSiteSettings(): SiteSettings | null {
+    const filePath = path.join(contentDirectory, "settings", "site.yaml");
+    if (!fs.existsSync(filePath)) {
+        return null;
+    }
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    const data = yaml.load(fileContents) as SiteSettings;
+    return data;
+}
+
+/**
+ * Generic function to read a settings YAML file
+ */
+function getSettingsFile<T>(filename: string): T | null {
+    const filePath = path.join(contentDirectory, "settings", `${filename}.yaml`);
+    if (!fs.existsSync(filePath)) {
+        return null;
+    }
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    return yaml.load(fileContents) as T;
+}
+
+/**
+ * Hero banner configuration
+ */
+export interface HeroBanner {
+    label: string;
+    title: string;
+    description: string;
+    linkText: string;
+    linkUrl: string;
+    icon: string;
+    gradientFrom: string;
+    gradientTo: string;
+}
+
+/**
+ * Hero settings for homepage
+ */
+export interface HeroSettings {
+    title: string;
+    subtitle: string;
+    image: string;
+    banners?: HeroBanner[];
+}
+export const getHeroSettings = () => getSettingsFile<HeroSettings>("hero");
+
+/**
+ * About section settings for homepage
+ */
+export interface AboutSettings {
+    title: string;
+    body: string;
+    image: string;
+}
+export const getAboutSettings = () => getSettingsFile<AboutSettings>("about");
+
+/**
+ * Services hero settings for Leistungen page
+ */
+export interface ServicesHeroSettings {
+    title: string;
+    description: string;
+}
+export const getServicesHeroSettings = () => getSettingsFile<ServicesHeroSettings>("services-hero");
+
+/**
+ * Team experience settings ("50 Jahre")
+ */
+export interface TeamExperienceSettings {
+    title: string;
+    body: string;
+    image: string;
+}
+export const getTeamExperienceSettings = () => getSettingsFile<TeamExperienceSettings>("team-experience");
+
+/**
+ * Navigation settings for header and footer menus
+ */
+export interface NavMenuItem {
+    name: string;
+    href: string;
+}
+export interface NavMenuItemWithSubmenu extends NavMenuItem {
+    hasSubmenu: boolean;
+    submenu?: NavMenuItem[];
+}
+export interface NavigationSettings {
+    headerMenu: NavMenuItemWithSubmenu[];
+    footerMenu: NavMenuItem[];
+}
+export const getNavigationSettings = () => getSettingsFile<NavigationSettings>("navigation");
+
+/**
+ * Homepage services tiles (independent from services collection)
+ */
+export interface HomepageServiceItem {
+    title: string;
+    description: string;
+    icon: string;
+    linkUrl?: string;
+}
+export interface HomepageServicesSettings {
+    title: string;
+    items: HomepageServiceItem[];
+}
+export const getHomepageServicesSettings = () => getSettingsFile<HomepageServicesSettings>("homepage-services");
+
+/**
+ * Contact page settings
+ */
+export interface ContactSettings {
+    pageTitle: string;
+    pageSubtitle: string;
+    locationsTitle: string;
+    ctaTitle: string;
+    ctaText: string;
+    ctaPhone: string;
+    formTitle: string;
+}
+export const getContactSettings = () => getSettingsFile<ContactSettings>("contact");
+
+/**
+ * Retrieves content for a specific single page (e.g. home.yaml or home.md).
+ * Checks for YAML file first (Keystatic format), then falls back to MD.
  * 
  * @param slug - The filename (without extension) in content/pages
  * @returns The page data object or null if not found
  */
 export function getPageContent(slug: string): PageContent | null {
-    const filePath = path.join(contentDirectory, "pages", `${slug}.md`);
-    if (!fs.existsSync(filePath)) {
-        return null;
+    // Try YAML first (Keystatic managed)
+    const yamlPath = path.join(contentDirectory, "pages", `${slug}.yaml`);
+    if (fs.existsSync(yamlPath)) {
+        const fileContents = fs.readFileSync(yamlPath, "utf8");
+        const data = yaml.load(fileContents) as Record<string, any>;
+        return { ...data, blocks: data.blocks || [], slug, body: '' } as unknown as PageContent;
     }
-    const fileContents = fs.readFileSync(filePath, "utf8");
-    const { data, content } = matter(fileContents);
-    // Parse markdown to HTML using Markdoc
-    const contentHtml = processMarkdoc(content);
-    return { ...data, blocks: data.blocks || [], slug, body: contentHtml } as unknown as PageContent;
+
+    // Fall back to MD (legacy format)
+    const mdPath = path.join(contentDirectory, "pages", `${slug}.md`);
+    if (fs.existsSync(mdPath)) {
+        const fileContents = fs.readFileSync(mdPath, "utf8");
+        const { data, content } = matter(fileContents);
+        const contentHtml = processMarkdoc(content);
+        return { ...data, blocks: data.blocks || [], slug, body: contentHtml } as unknown as PageContent;
+    }
+
+    return null;
 }
 
 /**
@@ -285,4 +442,32 @@ export function getAllTeam() {
     });
 }
 
+/**
+ * Fetches all service pages from content/services directory.
+ */
+export function getAllServices() {
+    return getCollectionItems("services");
+}
 
+/**
+ * Fetches a single service by its slug (filename without extension).
+ */
+export function getServiceById(id: string) {
+    const items = getAllServices();
+    return items.find((item: any) => item.slug === id);
+}
+
+/**
+ * Fetches all quality pages from content/quality directory.
+ */
+export function getAllQuality() {
+    return getCollectionItems("quality");
+}
+
+/**
+ * Fetches a single quality page by its slug.
+ */
+export function getQualityById(id: string) {
+    const items = getAllQuality();
+    return items.find((item: any) => item.slug === id);
+}

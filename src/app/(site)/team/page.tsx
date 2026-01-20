@@ -1,7 +1,8 @@
-import { getPageContent } from "@/lib/cms";
+import { getPageContent, getTeamExperienceSettings } from "@/lib/cms";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { ProjectCTA } from "@/components/ProjectCTA";
 
 export const metadata: Metadata = {
     title: "Team | Elektro-Tel",
@@ -10,6 +11,8 @@ export const metadata: Metadata = {
 
 export default function TeamPage() {
     const page = getPageContent("team");
+    // Use teamExperienceSettings for the "about" block (50 Jahre section)
+    const teamExperienceSettings = getTeamExperienceSettings();
 
     if (!page) notFound();
 
@@ -27,7 +30,10 @@ export default function TeamPage() {
 
             {/* If blocks exist, render them. If not, use fallback layout if needed, but we seeded blocks. */}
             {page.blocks && page.blocks.length > 0 ? (
-                <SectionRenderer blocks={page.blocks} />
+                <SectionRenderer
+                    blocks={page.blocks}
+                    aboutSettings={teamExperienceSettings}
+                />
             ) : (
                 <div className="container mx-auto px-4 py-20 text-center">
                     <h1 className="text-4xl font-bold uppercase mb-8">{page.title}</h1>
@@ -40,6 +46,10 @@ export default function TeamPage() {
                     </div>
                 </div>
             )}
+
+            {/* CTA Section */}
+            <ProjectCTA variant="light" />
         </div>
     );
 }
+
