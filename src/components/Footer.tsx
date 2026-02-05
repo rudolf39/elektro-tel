@@ -44,7 +44,7 @@ export function Footer({ footerMenu }: FooterProps) {
                     <div className="md:col-span-2">
                         <Link href="/" className="mb-6 block max-w-[200px]">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src="/images/logo-elektro-tel-ag.svg" alt="Elektro-Tel AG" className="w-full h-auto" />
+                            <img src="/images/logo-elektro-tel-ag.svg" alt="Elektro-Tel AG" width={200} height={64} className="w-full h-auto" />
                         </Link>
                         <p className="max-w-md text-slate-400 mb-6">
                             Ihr kompetenter Partner für sämtliche Elektro- und Telekommunikationsinstallationen.
@@ -52,13 +52,13 @@ export function Footer({ footerMenu }: FooterProps) {
                         </p>
 
                         <div className="flex gap-4 mt-6">
-                            <a href="https://www.facebook.com/people/Elektro-Tel-AG/100063451046079/#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://www.facebook.com/people/Elektro-Tel-AG/100063451046079/#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="Elektro-Tel auf Facebook">
                                 <Facebook size={24} />
                             </a>
-                            <a href="https://www.instagram.com/elektrotelag/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/elektrotelag/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="Elektro-Tel auf Instagram">
                                 <Instagram size={24} />
                             </a>
-                            <a href="https://ch.linkedin.com/company/elektro-tel-ag" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://ch.linkedin.com/company/elektro-tel-ag" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="Elektro-Tel auf LinkedIn">
                                 <Linkedin size={24} />
                             </a>
                         </div>

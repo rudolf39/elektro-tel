@@ -24,6 +24,8 @@ export function PartnerMarqueeClient({ partners, title }: { partners: any[], tit
                             <img
                                 src={partner.logo || "/partners/partner-placeholder.svg"}
                                 alt={partner.title}
+                                width={160}
+                                height={80}
                                 className="max-w-full max-h-full object-contain"
                                 onError={(e) => {
                                     e.currentTarget.style.display = 'none';

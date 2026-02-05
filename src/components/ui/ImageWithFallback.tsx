@@ -7,7 +7,7 @@ interface ImageWithFallbackProps extends DetailedHTMLProps<ImgHTMLAttributes<HTM
     hideOnError?: boolean;
 }
 
-export function ImageWithFallback({ src, fallbackSrc, hideOnError = true, alt, className, ...props }: ImageWithFallbackProps) {
+export function ImageWithFallback({ src, fallbackSrc, hideOnError = true, alt, className, loading, decoding, ...props }: ImageWithFallbackProps) {
     const [error, setError] = useState(false);
 
     if (error && hideOnError && !fallbackSrc) {
@@ -21,6 +21,8 @@ export function ImageWithFallback({ src, fallbackSrc, hideOnError = true, alt, c
             alt={alt}
             className={className}
             onError={() => setError(true)}
+            loading={loading ?? "lazy"}
+            decoding={decoding ?? "async"}
             {...props}
         />
     );

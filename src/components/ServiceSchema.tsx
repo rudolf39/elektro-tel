@@ -15,6 +15,7 @@ export function ServiceSchema({ service, areaServed = ["Winterthur", "Tägerwile
         "@type": "Service",
         name: service.title,
         description: service.description,
+        keywords: [service.title, ...areaServed].join(", "),
         provider: {
             "@type": "LocalBusiness",
             name: "Elektro-Tel AG",

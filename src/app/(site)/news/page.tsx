@@ -109,6 +109,8 @@ export default function NewsPage() {
                                             <ImageWithFallback
                                                 src={item.heroImage}
                                                 alt={item.title}
+                                                width={320}
+                                                height={160}
                                                 className="h-full w-auto object-contain p-2"
                                             />
                                         </div>

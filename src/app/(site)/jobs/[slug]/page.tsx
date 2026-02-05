@@ -27,6 +27,11 @@ export default async function JobDetailPage(props: { params: Promise<{ slug: str
 
     const settings = getSiteSettings();
     const allLocations = settings?.locations || [];
+    const parsePostalCode = (city?: string) => {
+        if (!city) return undefined;
+        const match = city.match(/\b\d{4,5}\b/);
+        return match ? match[0] : undefined;
+    };
     const locationMatches = allLocations.filter((loc) =>
         job.location?.toLowerCase?.().includes(loc.name.toLowerCase())
     );
@@ -36,6 +41,7 @@ export default async function JobDetailPage(props: { params: Promise<{ slug: str
             "@type": "PostalAddress",
             "streetAddress": loc.street,
             "addressLocality": loc.city,
+            "postalCode": parsePostalCode(loc.city),
             "addressCountry": "CH"
         }
     }));

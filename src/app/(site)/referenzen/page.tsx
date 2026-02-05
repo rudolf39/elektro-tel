@@ -86,6 +86,8 @@ export default function ReferencesPage() {
                                             <ImageWithFallback
                                                 src={item.image || item.heroImage}
                                                 alt={item.title}
+                                                width={800}
+                                                height={600}
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
                                         ) : (

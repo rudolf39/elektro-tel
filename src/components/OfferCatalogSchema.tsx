@@ -15,6 +15,7 @@ export function OfferCatalogSchema() {
                 "@type": "Service",
                 name: service.title,
                 url: `${BASE_URL}/leistungen/${service.slug}`,
+                keywords: [service.title, "Elektro-Tel AG", "Winterthur", "Tägerwilen", "Schaffhausen"].join(", "),
             }
         })),
     };
