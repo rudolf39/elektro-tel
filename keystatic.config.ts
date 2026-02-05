@@ -254,6 +254,79 @@ export default config({
                 body: fields.text({ label: 'Text', multiline: true }),
             },
         }),
+        // ============================================
+        // TEAM MEMBERS (Grouped by Department)
+        // ============================================
+        teamMembers: singleton({
+            label: 'Team-Mitglieder',
+            path: 'content/settings/team-members',
+            format: { data: 'yaml' },
+            schema: {
+                management: fields.array(
+                    fields.object({
+                        name: fields.text({ label: 'Name', validation: { isRequired: true } }),
+                        position: fields.text({ label: 'Position', validation: { isRequired: true } }),
+                        jobTitle: fields.text({ label: 'Job Title (optional)' }),
+                        email: fields.text({ label: 'E-Mail (optional)' }),
+                        image: fields.image({
+                            label: 'Foto',
+                            directory: 'public/images/team',
+                            publicPath: '/images/team/',
+                        }),
+                        showOnHomepage: fields.checkbox({
+                            label: 'Auf Startseite anzeigen',
+                            defaultValue: true,
+                        }),
+                    }),
+                    {
+                        label: 'Geschäftsleitung',
+                        itemLabel: (props) => props.fields.name.value || 'Neues Mitglied',
+                    }
+                ),
+                project: fields.array(
+                    fields.object({
+                        name: fields.text({ label: 'Name', validation: { isRequired: true } }),
+                        position: fields.text({ label: 'Position', validation: { isRequired: true } }),
+                        jobTitle: fields.text({ label: 'Job Title (optional)' }),
+                        email: fields.text({ label: 'E-Mail (optional)' }),
+                        image: fields.image({
+                            label: 'Foto',
+                            directory: 'public/images/team',
+                            publicPath: '/images/team/',
+                        }),
+                        showOnHomepage: fields.checkbox({
+                            label: 'Auf Startseite anzeigen',
+                            defaultValue: true,
+                        }),
+                    }),
+                    {
+                        label: 'Projektleitung',
+                        itemLabel: (props) => props.fields.name.value || 'Neues Mitglied',
+                    }
+                ),
+                administration: fields.array(
+                    fields.object({
+                        name: fields.text({ label: 'Name', validation: { isRequired: true } }),
+                        position: fields.text({ label: 'Position', validation: { isRequired: true } }),
+                        jobTitle: fields.text({ label: 'Job Title (optional)' }),
+                        email: fields.text({ label: 'E-Mail (optional)' }),
+                        image: fields.image({
+                            label: 'Foto',
+                            directory: 'public/images/team',
+                            publicPath: '/images/team/',
+                        }),
+                        showOnHomepage: fields.checkbox({
+                            label: 'Auf Startseite anzeigen',
+                            defaultValue: true,
+                        }),
+                    }),
+                    {
+                        label: 'Administration',
+                        itemLabel: (props) => props.fields.name.value || 'Neues Mitglied',
+                    }
+                ),
+            },
+        }),
     },
     collections: {
         // ============================================
@@ -508,26 +581,6 @@ export default config({
                 }),
                 order: fields.number({ label: 'Order' }),
                 body: fields.markdoc({ label: 'Description (Markdown)', extension: 'md' }),
-            },
-        }),
-        // @ts-ignore
-        teamMembers: collection({
-            label: 'Team Members',
-            slugField: 'title',
-            path: 'content/team/*',
-            format: { contentField: 'body' },
-            schema: {
-                title: fields.slug({ name: { label: 'Name' } }),
-                order: fields.number({ label: 'Order' }),
-                role: fields.text({ label: 'Role' }),
-                jobTitle: fields.text({ label: 'Job Title' }),
-                email: fields.text({ label: 'Email' }),
-                image: fields.image({
-                    label: 'Photo',
-                    directory: 'public/images/team',
-                    publicPath: '/images/team/',
-                }),
-                body: fields.markdoc({ label: 'Bio (Markdown)', extension: 'md' }),
             },
         }),
     },

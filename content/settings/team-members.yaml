@@ -1,0 +1,27 @@
+management:
+  - name: Damir Mujevic
+    position: Inhaber / Geschäftsleiter
+    jobTitle: Dipl. Techniker HF
+    email: d.mujevic@elektro-tel.ch
+    image: /images/team/management/0/image.jpg
+    showOnHomepage: true
+  - name: Salvatore Irrera
+    position: Inhaber / Geschäftsleiter
+    jobTitle: Automatisierungs-Integrator
+    email: s.irrera@elektro-tel.ch
+    image: /images/team/management/1/image.jpg
+    showOnHomepage: true
+project:
+  - name: Roberto Ircani
+    position: Projektleitung
+    jobTitle: Dipl. Elektro-Installateur
+    email: r.ircani@elektro-tel.ch
+    image: /images/team/project/0/image.jpg
+    showOnHomepage: true
+administration:
+  - name: Katarina Stojanovic
+    position: Administration
+    jobTitle: Kaufmännische Angestellte
+    email: k.stojanovic@elektro-tel.ch
+    image: /images/team/administration/0/image.jpg
+    showOnHomepage: true

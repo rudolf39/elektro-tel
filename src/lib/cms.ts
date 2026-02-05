@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import yaml from "js-yaml";
 import Markdoc, { nodes, Tag } from '@markdoc/markdoc';
+import { unstable_noStore as noStore } from "next/cache";
 
 const contentDirectory = path.join(process.cwd(), "content");
 
@@ -198,6 +199,30 @@ export interface HomepageServicesSettings {
     items: HomepageServiceItem[];
 }
 export const getHomepageServicesSettings = () => getSettingsFile<HomepageServicesSettings>("homepage-services");
+
+/**
+ * Team members grouped by department
+ */
+export interface TeamMember {
+    name: string;
+    position: string;
+    jobTitle?: string;
+    email?: string;
+    image?: string;
+    showOnHomepage?: boolean;
+}
+export interface TeamMembersSettings {
+    management: TeamMember[];
+    project: TeamMember[];
+    administration: TeamMember[];
+}
+export const getTeamMembersSettings = () => {
+    if (process.env.NODE_ENV !== "production") {
+        // Ensure drag-and-drop order changes are reflected immediately in dev.
+        noStore();
+    }
+    return getSettingsFile<TeamMembersSettings>("team-members");
+};
 
 /**
  * Contact page settings
@@ -426,20 +451,6 @@ export function getJobItem(slug: string) {
  */
 export function getAllPartners() {
     return getCollectionItems("partners");
-}
-
-/**
- * Fetches all team members, sorted by order (ascending).
- */
-export function getAllTeam() {
-    const items = getCollectionItems("team");
-    return items.sort((a: any, b: any) => {
-        // Undefined order goes to end
-        if (a.order === undefined && b.order === undefined) return 0;
-        if (a.order === undefined) return 1;
-        if (b.order === undefined) return -1;
-        return a.order - b.order;
-    });
 }
 
 /**
