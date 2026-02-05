@@ -7,6 +7,7 @@ import {
 import { AnimatedContent, AnimatedHero } from "@/components/ui/PageAnimations";
 import { ProjectCTA } from "@/components/ProjectCTA";
 import { getAllQuality, getQualityById } from "@/lib/cms";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 const iconMap: { [key: string]: any } = {
     ShieldCheck, Leaf, Recycle, ShieldAlert: ShieldCheck
@@ -46,6 +47,11 @@ export default async function QualityDetailPage({ params }: Props) {
 
     return (
         <div className="bg-white">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Qualität & Nachhaltigkeit", url: "/qualitaet" },
+                { name: content.title, url: `/qualitaet/${slug}` }
+            ]} />
             {/* Hero Section */}
             <section className="relative w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-28 md:pt-32 pb-16 overflow-hidden">
                 <div className="absolute inset-0 overflow-hidden">

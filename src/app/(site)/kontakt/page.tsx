@@ -1,5 +1,6 @@
 import { ContactLocationsBlock } from "@/components/blocks/ContactLocationsBlock";
 import { ContactForm } from "@/components/ContactForm";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { Metadata } from "next";
 import { getContactSettings } from "@/lib/cms";
 
@@ -37,6 +38,10 @@ export default function KontaktPage() {
 
     return (
         <div className="bg-white">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Kontakt", url: "/kontakt" }
+            ]} />
             {/* Header */}
             <div className="bg-slate-900 text-white py-14 md:py-20 mt-20 md:mt-24">
                 <div className="container mx-auto px-4 text-left">

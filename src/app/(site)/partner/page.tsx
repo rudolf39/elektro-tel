@@ -4,6 +4,7 @@ import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { getAllPartners } from "@/lib/cms";
 import { marked } from "marked";
 import { ProjectCTA } from "@/components/ProjectCTA";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
     title: "Partner | Elektro-Tel",
@@ -22,6 +23,10 @@ export default async function PartnerPage() {
 
     return (
         <div className="bg-white">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Partner", url: "/partner" }
+            ]} />
             {/* Header */}
             <div className="bg-slate-900 text-white py-14 md:py-20 mt-20 md:mt-24">
                 <div className="container mx-auto px-4 text-left">

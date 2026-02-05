@@ -1,5 +1,6 @@
 import { getPageContent, getTeamExperienceSettings } from "@/lib/cms";
 import { SectionRenderer } from "@/components/SectionRenderer";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ProjectCTA } from "@/components/ProjectCTA";
@@ -18,6 +19,10 @@ export default function TeamPage() {
 
     return (
         <div className="bg-white min-h-screen">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Team", url: "/team" }
+            ]} />
             {/* Header */}
             <div className="bg-slate-900 text-white py-14 md:py-20 mt-20 md:mt-24">
                 <div className="container mx-auto px-4 text-left">

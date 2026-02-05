@@ -1,0 +1,20 @@
+# Elektro-Tel AG – LLM Indexing Guide
+
+This website provides information about Elektro-Tel AG, its services, locations, jobs, and references.
+
+## Main Sections
+- https://elektro-tel.ch/ (Home)
+- https://elektro-tel.ch/leistungen (Services overview)
+- https://elektro-tel.ch/leistungen/* (Service detail pages)
+- https://elektro-tel.ch/referenzen (References)
+- https://elektro-tel.ch/news (News)
+- https://elektro-tel.ch/jobs (Jobs)
+- https://elektro-tel.ch/team (Team)
+- https://elektro-tel.ch/kontakt (Contact)
+- https://elektro-tel.ch/qualitaet (Quality & Sustainability)
+
+## Sitemap
+- https://elektro-tel.ch/sitemap.xml
+
+## Contact
+- info@elektro-tel.ch

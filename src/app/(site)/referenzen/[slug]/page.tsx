@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+
+const BASE_URL = "https://elektro-tel.ch";
 
 export async function generateStaticParams() {
     const refs = getAllReferences();
@@ -25,8 +28,28 @@ export default function ReferenceDetailPage({ params }: Props) {
     const item = getReferenceItem(params.slug);
     if (!item) notFound();
 
+    const projectSchema = {
+        "@context": "https://schema.org",
+        "@type": "Project",
+        "name": item.title,
+        "description": item.excerpt || item.body,
+        "url": `${BASE_URL}/referenzen/${item.slug}`,
+        "locationCreated": item.address
+            ? { "@type": "Place", "name": item.address }
+            : undefined
+    };
+
     return (
         <article className="min-h-screen pb-20 bg-white">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Referenzen", url: "/referenzen" },
+                { name: item.title, url: `/referenzen/${item.slug}` }
+            ]} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+            />
             <div className="container mx-auto px-4 py-8">
                 <Link href="/referenzen" className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-red mb-8 uppercase text-sm font-bold tracking-wide transition-colors">
                     <ArrowLeft size={16} /> Alle Referenzen

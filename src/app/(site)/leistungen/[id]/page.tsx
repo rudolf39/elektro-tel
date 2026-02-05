@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { AnimatedContent, AnimatedHero, StaggerContainer, StaggerItem, AnimatedImageWrapper } from "@/components/ui/PageAnimations";
 import { ProjectCTA } from "@/components/ProjectCTA";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { ServiceSchema } from "@/components/ServiceSchema";
 
 const iconMap: { [key: string]: any } = {
     FileText, Zap, Wrench, Cpu, Wifi, ShieldAlert, Lightbulb, Sun, Car
@@ -45,6 +47,12 @@ export default async function ServiceDetailPage({ params }: Props) {
 
     return (
         <div className="bg-white">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Leistungen", url: "/leistungen" },
+                { name: service.title, url: `/leistungen/${service.slug}` }
+            ]} />
+            <ServiceSchema service={{ title: service.title, slug: service.slug, description: service.description }} />
             {/* Hero Section - Premium Split Layout */}
             <section className="relative w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-28 md:pt-32 pb-16 md:pb-0 overflow-hidden">
                 {/* Decorative Background Elements */}

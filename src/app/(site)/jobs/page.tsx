@@ -1,6 +1,7 @@
 import { getAllJobs } from "@/lib/cms";
 import Link from "next/link";
 import { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
     title: "Jobs | Elektro-Tel",
@@ -12,6 +13,10 @@ export default function JobsPage() {
 
     return (
         <div className="bg-white">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Jobs", url: "/jobs" }
+            ]} />
             {/* Jobs Page Content */}
             {/* Header */}
             <div className="bg-slate-900 text-white py-14 md:py-20 mt-20 md:mt-24">

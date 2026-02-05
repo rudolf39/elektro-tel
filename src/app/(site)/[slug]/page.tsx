@@ -1,5 +1,6 @@
 import { getPageContent, getAllPages } from "@/lib/cms";
 import { SectionRenderer } from "@/components/SectionRenderer";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
@@ -33,6 +34,10 @@ export default async function DynamicPage({ params }: Props) {
 
     return (
         <div className="animate-fade-in mt-20 md:mt-24">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: page.title, url: `/${page.slug}` }
+            ]} />
             {/* If the user didn't add a Hero block, we might want a default header? 
            For now we assume blocks cover it. */}
             {page.blocks && page.blocks.length > 0 ? (

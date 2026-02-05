@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+
+const BASE_URL = "https://elektro-tel.ch";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     const news = getAllNews();
@@ -22,8 +25,40 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
         notFound();
     }
 
+    const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": item.title,
+        "datePublished": item.date,
+        "dateModified": item.date,
+        "image": item.heroImage ? [`${BASE_URL}${item.heroImage}`] : undefined,
+        "author": {
+            "@type": "Organization",
+            "name": "Elektro-Tel AG",
+            "url": BASE_URL
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Elektro-Tel AG",
+            "logo": {
+                "@type": "ImageObject",
+                "url": `${BASE_URL}/images/logo-elektro-tel-ag.svg`
+            }
+        },
+        "mainEntityOfPage": `${BASE_URL}/news/${item.slug}`
+    };
+
     return (
         <article className="min-h-screen pb-20">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "News", url: "/news" },
+                { name: item.title, url: `/news/${item.slug}` }
+            ]} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+            />
             {/* Hero */}
             <div className="relative h-[300px] md:h-[400px]">
                 <div className="absolute inset-0 bg-slate-900">

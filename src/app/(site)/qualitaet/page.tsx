@@ -4,6 +4,7 @@ import { ShieldCheck, Leaf, Recycle, ArrowRight, Download } from "lucide-react";
 import { AnimatedContent, AnimatedHero } from "@/components/ui/PageAnimations";
 import { getAllQuality } from "@/lib/cms";
 import { ProjectCTA } from "@/components/ProjectCTA";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
     title: "Qualitätsmanagement und Nachhaltigkeit | Elektro-Tel AG",
@@ -19,6 +20,10 @@ export default function QualitaetPage() {
 
     return (
         <div className="bg-white">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Qualität & Nachhaltigkeit", url: "/qualitaet" }
+            ]} />
             {/* Hero Section */}
             <section className="relative w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-28 md:pt-32 pb-16 overflow-hidden">
                 <div className="absolute inset-0 overflow-hidden">

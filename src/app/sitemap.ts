@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllPages, getAllNews, getAllReferences, getAllJobs } from '@/lib/cms';
+import { getAllPages, getAllNews, getAllReferences, getAllJobs, getAllServices, getAllQuality } from '@/lib/cms';
 
 const BASE_URL = 'https://elektro-tel.ch';
 
@@ -21,7 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
     // Dynamic Pages (e.g. AGB, Datenschutz)
-    const pages = getAllPages().map((page: any) => ({
+    const pages = getAllPages()
+        .filter((page: any) => page && page.slug !== 'home')
+        .map((page: any) => ({
         url: `${BASE_URL}/${page.slug}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
@@ -52,5 +54,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9, // High priority for jobs
     }));
 
-    return [...routes, ...pages, ...news, ...references, ...jobs];
+    const services = getAllServices().map((item: any) => ({
+        url: `${BASE_URL}/leistungen/${item.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
+    const quality = getAllQuality().map((item: any) => ({
+        url: `${BASE_URL}/qualitaet/${item.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
+    }));
+
+    return [...routes, ...pages, ...news, ...references, ...jobs, ...services, ...quality];
 }

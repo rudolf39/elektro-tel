@@ -1,6 +1,8 @@
 import { getPageContent, getAllServices } from "@/lib/cms";
 import { Metadata } from "next";
 import { ServicesPageContent } from "@/components/ServicesPageContent";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { OfferCatalogSchema } from "@/components/OfferCatalogSchema";
 
 export const metadata: Metadata = {
     title: "Leistungen | Elektro-Tel",
@@ -22,10 +24,17 @@ export default function LeistungenPage() {
     }));
 
     return (
-        <ServicesPageContent
-            title={page?.title}
-            description={page?.seoDescription}
-            services={mappedServices}
-        />
+        <>
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Leistungen", url: "/leistungen" }
+            ]} />
+            <OfferCatalogSchema />
+            <ServicesPageContent
+                title={page?.title}
+                description={page?.seoDescription}
+                services={mappedServices}
+            />
+        </>
     );
 }

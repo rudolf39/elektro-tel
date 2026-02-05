@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { AnimatedContent } from "@/components/ui/PageAnimations";
 import { ProjectCTA } from "@/components/ProjectCTA";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
     title: "Referenzen | Elektro-Tel",
@@ -14,6 +15,10 @@ export default function ReferencesPage() {
 
     return (
         <div className="bg-white w-full overflow-x-hidden">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Referenzen", url: "/referenzen" }
+            ]} />
             {/* Header */}
             <div className="bg-slate-900 text-white py-14 md:py-20 mt-20 md:mt-24">
                 <div className="container mx-auto px-4 text-left">

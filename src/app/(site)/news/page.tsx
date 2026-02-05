@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { Metadata } from "next";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import {
     Calendar, Newspaper, Trophy, Wrench, ShieldCheck, Handshake, Info, Phone
 } from "lucide-react";
@@ -49,6 +50,10 @@ export default function NewsPage() {
 
     return (
         <div className="bg-white">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "News", url: "/news" }
+            ]} />
             {/* Header */}
             <div className="bg-slate-900 text-white py-14 md:py-20 mt-20 md:mt-24">
                 <div className="container mx-auto px-4 text-left">

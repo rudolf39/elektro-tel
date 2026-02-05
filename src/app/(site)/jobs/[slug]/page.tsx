@@ -1,6 +1,9 @@
-import { getJobData } from "@/lib/cms";
+import { getJobData, getSiteSettings } from "@/lib/cms";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+
+const BASE_URL = "https://elektro-tel.ch";
 
 export const dynamic = "force-dynamic";
 
@@ -22,31 +25,46 @@ export default async function JobDetailPage(props: { params: Promise<{ slug: str
 
     if (!job) notFound();
 
+    const settings = getSiteSettings();
+    const allLocations = settings?.locations || [];
+    const locationMatches = allLocations.filter((loc) =>
+        job.location?.toLowerCase?.().includes(loc.name.toLowerCase())
+    );
+    const jobLocations = (locationMatches.length > 0 ? locationMatches : allLocations).map((loc) => ({
+        "@type": "Place",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": loc.street,
+            "addressLocality": loc.city,
+            "addressCountry": "CH"
+        }
+    }));
+
     // JSON-LD
     const jsonLd = {
         "@context": "https://schema.org/",
         "@type": "JobPosting",
         "title": job.title,
         "description": job.html || job.intro,
+        "employmentType": "FULL_TIME",
         "hiringOrganization": {
             "@type": "Organization",
             "name": "Elektro-Tel AG",
-            "sameAs": "https://elektro-tel.ch"
+            "sameAs": "https://elektro-tel.ch",
+            "url": BASE_URL,
+            "logo": `${BASE_URL}/images/logo-elektro-tel-ag.svg`
         },
-        "jobLocation": {
-            "@type": "Place",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": job.location || "Winterthur",
-                "addressRegion": "ZH",
-                "addressCountry": "CH"
-            }
-        },
-        "datePosted": new Date().toISOString()
+        "jobLocation": jobLocations,
+        "datePosted": job.date || new Date().toISOString()
     };
 
     return (
         <div className="bg-white pb-20">
+            <BreadcrumbSchema items={[
+                { name: "Startseite", url: "/" },
+                { name: "Jobs", url: "/jobs" },
+                { name: job.title, url: `/jobs/${job.slug}` }
+            ]} />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
