@@ -22,6 +22,20 @@ export const metadata: Metadata = {
     siteName: 'Elektro-Tel AG',
     locale: 'de_CH',
     type: 'website',
+    images: [
+      {
+        url: 'https://elektro-tel.ch/images/smart-home-elektroinstallation-gebaeudeautomation-elektro-tel-schweiz.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Elektro-Tel AG - Elektroinstallation und Gebäudeautomation',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Elektro-Tel | Ihr Partner für Elektro und Telekommunikation",
+    description: "Ihr Experte für Elektroinstallationen und Telekommunikation in Winterthur, Tägerwilen und Schaffhausen.",
+    images: ['https://elektro-tel.ch/images/smart-home-elektroinstallation-gebaeudeautomation-elektro-tel-schweiz.webp'],
   },
   robots: {
     index: true,

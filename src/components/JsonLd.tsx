@@ -20,7 +20,7 @@ export function JsonLd() {
         "name": settings?.companyName || "Elektro-Tel AG",
         "url": BASE_URL,
         "logo": `${BASE_URL}/images/logo-elektro-tel-ag.svg`,
-        "image": `${BASE_URL}/images/elektro-tel-ag-hero-image.webp`,
+        "image": `${BASE_URL}/images/smart-home-elektroinstallation-gebaeudeautomation-elektro-tel-schweiz.webp`,
         "telephone": settings?.phone || "0800 800 813",
         "email": settings?.email || "info@elektro-tel.ch",
         "address": mainLocation
